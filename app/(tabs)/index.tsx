@@ -12,6 +12,8 @@ import {
 	View,
 } from 'react-native';
 
+import FundoLogin from '../../assets/images/fundo1.png';
+
 export default function LoginScreen() {
 	const [convenio, setConvenio] = useState('');
 	const [usuario, setUsuario] = useState('');
@@ -25,71 +27,76 @@ export default function LoginScreen() {
 			<StatusBar barStyle="light-content" />
 
 			<ImageBackground
-				source={require('@/assets/images/fundo1.png')}
+				source={FundoLogin}
 				resizeMode="cover"
 				style={styles.background}
 			>
-				<View style={styles.formContainer}>
-					<View style={styles.logoContainer}>
-						<Text style={styles.logoPlaceholder}>FAN Plus</Text>
-					</View>
+				<View style={styles.contentContainer}>
+					<View style={styles.formContainer}>
+						<View style={styles.logoContainer}>
+							<Text style={styles.logoPlaceholder}>FAN Plus</Text>
+						</View>
 
-					<Text style={styles.title}>Controle de Acesso</Text>
+						<Text style={styles.title}>Controle de Acesso</Text>
 
-					{/* Input Convênio */}
-					<View style={styles.inputWrapper}>
-						<Text style={styles.inputLabel}>Convênio</Text>
-						<View style={styles.inputContainer}>
-							<MaterialIcons name="apartment" size={20} color="#888" style={styles.icon} />
-							<TextInput
-								style={styles.input}
-								value={convenio}
-								onChangeText={setConvenio}
-								placeholderTextColor="#999"
-							/>
+						{/* Input Convênio */}
+						<View style={styles.inputWrapper}>
+							<Text style={styles.inputLabel}>Convênio</Text>
+							<View style={styles.inputContainer}>
+								<MaterialIcons name="apartment" size={20} color="#888" style={styles.icon} />
+								<TextInput
+									style={styles.input}
+									value={convenio}
+									onChangeText={setConvenio}
+									placeholder="Digite o convênio"
+									placeholderTextColor="#BBB"
+								/>
+							</View>
+						</View>
+
+						{/* Input Usuário */}
+						<View style={styles.inputWrapper}>
+							<Text style={styles.inputLabel}>Usuário</Text>
+							<View style={styles.inputContainer}>
+								<FontAwesome name="user" size={20} color="#888" style={styles.icon} />
+								<TextInput
+									style={styles.input}
+									value={usuario}
+									onChangeText={setUsuario}
+									placeholder="Digite o usuário"
+									placeholderTextColor="#BBB"
+								/>
+							</View>
+						</View>
+
+						{/* Input Senha */}
+						<View style={styles.inputWrapper}>
+							<Text style={styles.inputLabel}>Senha</Text>
+							<View style={styles.inputContainer}>
+								<FontAwesome name="lock" size={20} color="#888" style={styles.icon} />
+								<TextInput
+									style={styles.input}
+									value={senha}
+									onChangeText={setSenha}
+									secureTextEntry
+									placeholder="Digite a senha"
+									placeholderTextColor="#BBB"
+								/>
+							</View>
+						</View>
+
+						<View style={styles.actionsContainer}>
+							<TouchableOpacity style={styles.button}>
+								<Text style={styles.buttonText}>Entrar</Text>
+							</TouchableOpacity>
+							<TouchableOpacity>
+								<Text style={styles.forgotPasswordText}>Esqueceu sua senha?</Text>
+							</TouchableOpacity>
 						</View>
 					</View>
 
-					{/* Input Usuário */}
-					<View style={styles.inputWrapper}>
-						<Text style={styles.inputLabel}>Usuário</Text>
-						<View style={styles.inputContainer}>
-							<FontAwesome name="user" size={20} color="#888" style={styles.icon} />
-							<TextInput
-								style={styles.input}
-								value={usuario}
-								onChangeText={setUsuario}
-								placeholderTextColor="#999"
-							/>
-						</View>
-					</View>
-
-					{/* Input Senha */}
-					<View style={styles.inputWrapper}>
-						<Text style={styles.inputLabel}>Senha</Text>
-						<View style={styles.inputContainer}>
-							<FontAwesome name="lock" size={20} color="#888" style={styles.icon} />
-							<TextInput
-								style={styles.input}
-								value={senha}
-								onChangeText={setSenha}
-								secureTextEntry
-								placeholderTextColor="#999"
-							/>
-						</View>
-					</View>
-
-					<View style={styles.actionsContainer}>
-						<TouchableOpacity style={styles.button}>
-							<Text style={styles.buttonText}>Entrar</Text>
-						</TouchableOpacity>
-						<TouchableOpacity>
-							<Text style={styles.forgotPasswordText}>Esqueceu sua senha?</Text>
-						</TouchableOpacity>
-					</View>
+					<Text style={styles.footerText}>Powered by CACTUS Tecnologia</Text>
 				</View>
-
-				<Text style={styles.footerText}>Powered by CACTUS Tecnologia</Text>
 			</ImageBackground>
 		</KeyboardAvoidingView>
 	);
@@ -104,8 +111,12 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 		alignItems: 'center',
 	},
-	formContainer: {
+	contentContainer: {
 		width: '85%',
+		alignItems: 'center',
+	},
+	formContainer: {
+		width: '100%',
 		backgroundColor: 'white',
 		borderRadius: 10,
 		padding: 25,
@@ -147,6 +158,7 @@ const styles = StyleSheet.create({
 		borderColor: '#ddd',
 		borderRadius: 5,
 		height: 45,
+		backgroundColor: '#f9f9f9',
 	},
 	icon: {
 		padding: 10,
@@ -180,9 +192,8 @@ const styles = StyleSheet.create({
 		fontSize: 14,
 	},
 	footerText: {
-		position: 'absolute',
-		bottom: 20,
-		color: 'rgba(0, 0, 0, 0.7)',
+		marginTop: 15,
+		color: 'rgba(255, 255, 255, 0.8)',
 		fontSize: 12,
 	},
 });
