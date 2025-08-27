@@ -1,75 +1,188 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import { FontAwesome, MaterialIcons } from '@expo/vector-icons';
+import React, { useState } from 'react';
+import {
+	ImageBackground,
+	KeyboardAvoidingView,
+	Platform,
+	StatusBar,
+	StyleSheet,
+	Text,
+	TextInput,
+	TouchableOpacity,
+	View,
+} from 'react-native';
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+export default function LoginScreen() {
+	const [convenio, setConvenio] = useState('');
+	const [usuario, setUsuario] = useState('');
+	const [senha, setSenha] = useState('');
 
-export default function HomeScreen() {
-  return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
-  );
+	return (
+		<KeyboardAvoidingView
+			behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+			style={styles.container}
+		>
+			<StatusBar barStyle="light-content" />
+
+			<ImageBackground
+				source={require('@/assets/images/fundo1.png')}
+				resizeMode="cover"
+				style={styles.background}
+			>
+				<View style={styles.formContainer}>
+					<View style={styles.logoContainer}>
+						<Text style={styles.logoPlaceholder}>FAN Plus</Text>
+					</View>
+
+					<Text style={styles.title}>Controle de Acesso</Text>
+
+					{/* Input Convênio */}
+					<View style={styles.inputWrapper}>
+						<Text style={styles.inputLabel}>Convênio</Text>
+						<View style={styles.inputContainer}>
+							<MaterialIcons name="apartment" size={20} color="#888" style={styles.icon} />
+							<TextInput
+								style={styles.input}
+								value={convenio}
+								onChangeText={setConvenio}
+								placeholderTextColor="#999"
+							/>
+						</View>
+					</View>
+
+					{/* Input Usuário */}
+					<View style={styles.inputWrapper}>
+						<Text style={styles.inputLabel}>Usuário</Text>
+						<View style={styles.inputContainer}>
+							<FontAwesome name="user" size={20} color="#888" style={styles.icon} />
+							<TextInput
+								style={styles.input}
+								value={usuario}
+								onChangeText={setUsuario}
+								placeholderTextColor="#999"
+							/>
+						</View>
+					</View>
+
+					{/* Input Senha */}
+					<View style={styles.inputWrapper}>
+						<Text style={styles.inputLabel}>Senha</Text>
+						<View style={styles.inputContainer}>
+							<FontAwesome name="lock" size={20} color="#888" style={styles.icon} />
+							<TextInput
+								style={styles.input}
+								value={senha}
+								onChangeText={setSenha}
+								secureTextEntry
+								placeholderTextColor="#999"
+							/>
+						</View>
+					</View>
+
+					<View style={styles.actionsContainer}>
+						<TouchableOpacity style={styles.button}>
+							<Text style={styles.buttonText}>Entrar</Text>
+						</TouchableOpacity>
+						<TouchableOpacity>
+							<Text style={styles.forgotPasswordText}>Esqueceu sua senha?</Text>
+						</TouchableOpacity>
+					</View>
+				</View>
+
+				<Text style={styles.footerText}>Powered by CACTUS Tecnologia</Text>
+			</ImageBackground>
+		</KeyboardAvoidingView>
+	);
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
+	container: {
+		flex: 1,
+	},
+	background: {
+		flex: 1,
+		justifyContent: 'center',
+		alignItems: 'center',
+	},
+	formContainer: {
+		width: '85%',
+		backgroundColor: 'white',
+		borderRadius: 10,
+		padding: 25,
+		alignItems: 'stretch',
+		shadowColor: '#000',
+		shadowOffset: { width: 0, height: 4 },
+		shadowOpacity: 0.3,
+		shadowRadius: 4.65,
+		elevation: 8,
+	},
+	logoContainer: {
+		alignSelf: 'flex-start',
+		marginBottom: 20,
+	},
+	logoPlaceholder: {
+		fontSize: 28,
+		fontWeight: 'bold',
+		color: '#0083B0',
+	},
+	title: {
+		fontSize: 16,
+		color: '#666',
+		alignSelf: 'flex-start',
+		marginBottom: 20,
+		fontWeight: '500',
+	},
+	inputWrapper: {
+		marginBottom: 15,
+	},
+	inputLabel: {
+		color: '#555',
+		fontSize: 14,
+		marginBottom: 5,
+	},
+	inputContainer: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		borderWidth: 1,
+		borderColor: '#ddd',
+		borderRadius: 5,
+		height: 45,
+	},
+	icon: {
+		padding: 10,
+	},
+	input: {
+		flex: 1,
+		paddingVertical: 10,
+		paddingRight: 10,
+		fontSize: 16,
+		color: '#333',
+	},
+	actionsContainer: {
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		alignItems: 'center',
+		marginTop: 10,
+	},
+	button: {
+		backgroundColor: '#0095DA',
+		paddingVertical: 12,
+		paddingHorizontal: 30,
+		borderRadius: 5,
+	},
+	buttonText: {
+		color: 'white',
+		fontSize: 16,
+		fontWeight: 'bold',
+	},
+	forgotPasswordText: {
+		color: '#0095DA',
+		fontSize: 14,
+	},
+	footerText: {
+		position: 'absolute',
+		bottom: 20,
+		color: 'rgba(0, 0, 0, 0.7)',
+		fontSize: 12,
+	},
 });
