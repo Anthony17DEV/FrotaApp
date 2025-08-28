@@ -1,39 +1,26 @@
 import React from 'react';
 import { ScrollView, StatusBar, StyleSheet, View } from 'react-native';
 import { BannerContainer } from '../components/BannerContainer';
-import { CarouselContainer } from '../components/CarouselContainer';
-import { DealContainer } from '../components/DealContainer';
+import { CategorySwiper } from '../components/CategorySwiper';
 import { HeaderContainer } from '../components/HeaderContainer';
+import { HomeBanner } from '../components/HomeBanner';
 import { NewArrivalContainer } from '../components/NewArrivalContainer';
-import { NewArrivalTwoContainer } from '../components/newArrivalTwoContainer';
-import { ProductSwiper } from '../components/ProductSwiper';
-import { TopBrandContainer } from '../components/TopBrandContainer';
-import { TrendingContainer } from '../components/trendingContainer';
-import { WhosTrending } from '../components/WhosTending';
+import { TrendingContainer } from '../components/TrendingContainer';
 
 export default function HomeScreen() {
-	const openDrawer = () => {
-		console.log('Abrir menu lateral');
-	};
-
 	return (
 		<View style={styles.container}>
 			<StatusBar barStyle="dark-content" />
 
-			<HeaderContainer onPress={openDrawer} />
-
 			<ScrollView
 				showsVerticalScrollIndicator={false}
 			>
+				<HeaderContainer />
 				<BannerContainer />
-				<ProductSwiper />
-				<CarouselContainer />
+				<HomeBanner />
+				<CategorySwiper />
 				<NewArrivalContainer />
-				<NewArrivalTwoContainer />
 				<TrendingContainer />
-				<WhosTrending />
-				<DealContainer />
-				<TopBrandContainer />
 
 			</ScrollView>
 		</View>

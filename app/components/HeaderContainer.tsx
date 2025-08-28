@@ -1,77 +1,54 @@
 import { Feather } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
 import React from 'react';
 import { Platform, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-const IconBackground = ({ value, onPress }: { value: React.ReactNode; onPress?: () => void }) => (
-	<TouchableOpacity onPress={onPress} style={styles.iconButton}>
-		{value}
-	</TouchableOpacity>
-);
-
-interface HeaderContainerProps {
-	onPress?: () => void;
-}
-
-export function HeaderContainer({ onPress }: HeaderContainerProps) {
-	const router = useRouter();
-
-	const textColorStyle = '#000000';
-	const viewRTLStyle = 'row';
-
+export function HeaderContainer() {
 	return (
-		<View style={[styles.header, { flexDirection: viewRTLStyle }]}>
-			<View style={[styles.leftSection, { flexDirection: viewRTLStyle }]}>
-				<IconBackground
-					value={<Feather name="menu" size={24} color={textColorStyle} />}
-					onPress={onPress}
-				/>
-				<View style={{ marginLeft: 5 }}>
-					<Text style={[styles.greetingText, { color: textColorStyle }]}>
-						Olá, Anthony!
-					</Text>
+		<View style={styles.container}>
+			{/* Lado Esquerdo: Menu e Saudação */}
+			<View style={styles.leftSection}>
+				<TouchableOpacity style={styles.iconButton}>
+					<Feather name="menu" size={26} color="#333" />
+				</TouchableOpacity>
+				<View>
+					<Text style={styles.greetingText}>Olá, Anthony!</Text>
+					<Text style={styles.greetingSubtext}>Bem-vindo de volta</Text>
 				</View>
 			</View>
 
-			<View style={styles.rightSection}>
-				<IconBackground
-					onPress={() => console.log('Navegar para Notificações')}
-					value={<Feather name="bell" size={24} color={textColorStyle} />}
-				/>
-			</View>
+			<TouchableOpacity style={styles.iconButton}>
+				<Feather name="bell" size={26} color="#333" />
+			</TouchableOpacity>
 		</View>
 	);
 }
 
 const styles = StyleSheet.create({
-	header: {
+	container: {
 		flexDirection: 'row',
-		alignItems: 'center',
 		justifyContent: 'space-between',
+		alignItems: 'center',
 		paddingHorizontal: 20,
-		paddingVertical: 10,
-		marginTop: Platform.OS === 'android' ? StatusBar.currentHeight : 44,
+		paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 65,
+		paddingBottom: 0,
+		backgroundColor: '#FFFFFF',
 	},
 	leftSection: {
 		flexDirection: 'row',
 		alignItems: 'center',
 	},
-	rightSection: {
-		flexDirection: 'row',
-		alignItems: 'center',
+	iconButton: {
+		padding: 5,
 	},
 	greetingText: {
-		fontSize: 19,
+		fontSize: 20,
 		fontWeight: 'bold',
+		color: '#333',
+		marginLeft: 15,
 	},
-	img: {
-		width: 32,
-		height: 22,
-		resizeMode: 'contain',
-	},
-	iconButton: {
-		padding: 8,
-		borderRadius: 20,
-		backgroundColor: '#f0f0f0',
+	greetingSubtext: {
+		fontSize: 14,
+		color: '#888',
+		marginLeft: 15,
 	},
 });

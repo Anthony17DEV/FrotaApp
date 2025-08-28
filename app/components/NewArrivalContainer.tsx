@@ -1,22 +1,25 @@
-import { LinearGradient } from 'expo-linear-gradient';
-import { useRouter } from 'expo-router';
 import React from 'react';
 import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
+// Dados de exemplo para "Serviços Recentes"
 const newArrivalData = [
 	{
 		id: '1',
-		img: { uri: 'https://atrialub.com.br/wp-content/uploads/2018/11/catalogo_fundo_lust.jpg' },
-		title: 'Troca de óleo Agendada',
-		subtitle: 'Veículo: ABC-1234',
-		price: 150.0,
+		img: { uri: 'https://placehold.co/100x100/e2e8f0/333?text=Servi%C3%A7o+1' },
+		title: 'Informação 1',
+		subtitle: 'Aqui ficaram as informações sobre a frota em especifica',
 	},
 	{
 		id: '2',
-		img: { uri: 'https://fandistribuidora.com.br/wp-content/uploads/2022/02/2.jpg' },
-		title: 'Abastecimento Completo',
-		subtitle: 'Posto Parceiro XYZ',
-		price: 350.0,
+		img: { uri: 'https://placehold.co/100x100/e2e8f0/333?text=Servi%C3%A7o+2' },
+		title: 'Informação 2',
+		subtitle: 'Aqui ficaram as informações sobre a frota em especifica',
+	},
+	{
+		id: '3',
+		img: { uri: 'https://placehold.co/100x100/e2e8f0/333?text=Servi%C3%A7o+3' },
+		title: 'Informação 3',
+		subtitle: 'Aqui ficaram as informações sobre a frota em especifica',
 	},
 ];
 
@@ -30,135 +33,122 @@ const HeadingCategory = ({ value, seeall }: { value: string; seeall: string }) =
 );
 
 export function NewArrivalContainer() {
-	const router = useRouter();
-
 	const renderItem = ({ item }: { item: typeof newArrivalData[0] }) => (
 		<TouchableOpacity
-			onPress={() => console.log('Navegar para detalhes do item', item.id)}
-			activeOpacity={0.9}
-			style={styles.itemWrapper}
+			onPress={() => console.log('Ver detalhes do serviço:', item.id)}
+			style={styles.itemContainer}
 		>
-			<LinearGradient
-				colors={['#FFFFFF', '#F9F9F9']}
-				style={styles.container}
-			>
-				<View style={styles.imageContainer}>
-					<Image style={styles.image} source={item.img} />
-				</View>
-				<View style={styles.textContainer}>
-					<View style={styles.ratingContainer}>
-						<Text style={styles.title} numberOfLines={1}>{item.title}</Text>
-					</View>
-					<Text style={styles.subtitle} numberOfLines={1}>{item.subtitle}</Text>
-					<View style={styles.priceContainer}>
-						<Text style={styles.price}>
-							R$ {item.price.toFixed(2)}
-						</Text>
-					</View>
-				</View>
-			</LinearGradient>
+			<Image source={item.img} style={styles.itemImage} />
+			<View style={styles.itemDetails}>
+				<Text style={styles.itemTitle} numberOfLines={1}>{item.title}</Text>
+				<Text style={styles.itemSubtitle} numberOfLines={1}>{item.subtitle}</Text>
+			</View>
+			<View style={styles.ratingAndAddContainer}>
+			</View>
 		</TouchableOpacity>
 	);
 
 	return (
-		<View style={styles.newArrivalContainer}>
-			<HeadingCategory value="Últimos Serviços" seeall="Ver Todos" />
+		<View style={styles.wrapper}>
+			<HeadingCategory value="Serviços Recentes" seeall="Ver todos" />
 			<FlatList
 				data={newArrivalData}
 				renderItem={renderItem}
 				keyExtractor={(item) => item.id}
-				horizontal
-				showsHorizontalScrollIndicator={false}
-				contentContainerStyle={{ paddingLeft: 20 }}
+				scrollEnabled={false}
 			/>
 		</View>
 	);
 }
 
 const styles = StyleSheet.create({
-	newArrivalContainer: {
-		marginTop: 20,
+	wrapper: {
+		marginTop: 25,
+		paddingHorizontal: 20,
 	},
 	headingContainer: {
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 		alignItems: 'center',
-		paddingHorizontal: 20,
-		marginBottom: 10,
+		marginBottom: 15,
 	},
 	headingTitle: {
-		fontSize: 18,
+		fontSize: 20,
 		fontWeight: 'bold',
 	},
 	headingLink: {
 		fontSize: 14,
 		color: '#0095DA',
 	},
-	itemWrapper: {
-		marginRight: 15,
-	},
-	container: {
-		width: 280,
+	itemContainer: {
 		flexDirection: 'row',
-		padding: 10,
+		backgroundColor: 'white',
 		borderRadius: 10,
-		borderWidth: 1,
-		borderColor: '#EDF0FF',
-	},
-	imageContainer: {
-		height: 120,
-		width: 120,
-		backgroundColor: '#F3F5FB',
-		borderRadius: 8,
+		padding: 10,
+		marginBottom: 15,
 		alignItems: 'center',
-		justifyContent: 'center',
+		shadowColor: '#000',
+		shadowOffset: { width: 0, height: 1 },
+		shadowOpacity: 0.1,
+		shadowRadius: 3,
+		elevation: 3,
 	},
-	image: {
-		width: '80%',
-		height: '80%',
-		resizeMode: 'contain',
+	itemImage: {
+		width: 80,
+		height: 80,
+		borderRadius: 8,
+		backgroundColor: '#f0f0f0',
 	},
-	textContainer: {
+	itemDetails: {
 		flex: 1,
 		marginLeft: 10,
-		justifyContent: 'space-between',
+		justifyContent: 'center',
 	},
-	title: {
-		width: '75%',
-		color: '#000',
+	itemTitle: {
 		fontSize: 16,
 		fontWeight: 'bold',
+		marginBottom: 4,
 	},
-	ratingContainer: {
-		flexDirection: 'row',
-		alignItems: 'center',
-		justifyContent: 'space-between',
-	},
-	subtitle: {
-		color: '#888',
+	itemSubtitle: {
 		fontSize: 12,
+		color: '#888',
+		marginBottom: 8,
 	},
 	priceContainer: {
 		flexDirection: 'row',
 		alignItems: 'center',
-		marginTop: 5,
 	},
-	price: {
+	itemPrice: {
 		fontSize: 16,
 		fontWeight: 'bold',
 		color: '#000',
 	},
-	underlinePrice: {
-		marginLeft: 5,
+	itemUnderlinePrice: {
+		fontSize: 12,
 		color: '#AAA',
 		textDecorationLine: 'line-through',
+		marginLeft: 5,
 	},
-	plusButton: {
-		marginLeft: 'auto',
+	ratingAndAddContainer: {
+		alignItems: 'flex-end',
+		justifyContent: 'space-between',
+		height: '100%',
+		paddingVertical: 4, // Adiciona um pequeno espaçamento vertical
+	},
+	ratingContainer: {
+		flexDirection: 'row',
+		alignItems: 'center',
+	},
+	ratingText: {
+		marginLeft: 4,
+		color: '#FFA500',
+		fontWeight: 'bold',
+	},
+	addButton: {
 		backgroundColor: '#0095DA',
-		width: 28,
-		height: 28,
-		borderRadius: 14,
+		width: 32,
+		height: 32,
+		borderRadius: 16,
 		justifyContent: 'center',
 		alignItems: 'center',
 	},

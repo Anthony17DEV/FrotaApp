@@ -13,8 +13,8 @@ import {
 	View,
 } from 'react-native';
 
-import FundoLogin from './images/fundo1.png';
-import Logo from './images/logo2-fan.png';
+import FundoLogin from './(tabs)/images/fundo1.png';
+import Logo from './(tabs)/images/logo2-fan.png';
 
 export default function LoginScreen() {
 	const [convenio, setConvenio] = useState('');
@@ -23,11 +23,7 @@ export default function LoginScreen() {
 	const router = useRouter();
 
 	const handleLogin = () => {
-		router.push('/loading');
-
-		setTimeout(() => {
-			router.replace('/home');
-		}, 1000);
+		router.replace('/loading');
 	};
 
 	return (
@@ -44,7 +40,7 @@ export default function LoginScreen() {
 						<Image source={Logo} style={styles.logoImage} />
 					</View>
 
-					<Text style={styles.title}>Controle de Acesso</Text>
+					<Text style={styles.title}>Controlo de Acesso</Text>
 
 					{/* Inputs */}
 					<View style={styles.inputContainer}>
@@ -87,7 +83,7 @@ export default function LoginScreen() {
 							<Text style={styles.buttonText}>Entrar</Text>
 						</TouchableOpacity>
 						<TouchableOpacity>
-							<Text style={styles.forgotPasswordText}>Esqueceu sua senha?</Text>
+							<Text style={styles.forgotPasswordText}>Esqueceu a sua senha?</Text>
 						</TouchableOpacity>
 					</View>
 				</View>
@@ -188,6 +184,6 @@ const styles = StyleSheet.create({
 		bottom: 210,
 		alignSelf: 'center',
 		color: 'rgba(255, 255, 255, 0.8)',
-		fontSize: 15,
+		fontSize: 17,
 	},
 });

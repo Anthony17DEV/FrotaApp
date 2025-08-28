@@ -1,4 +1,4 @@
-import { useValues } from '@App'
+import { useValues } from '@/app/login'
 import { Apple } from '@src/assets/icons/apple'
 import { Email } from '@src/assets/icons/email'
 import {
