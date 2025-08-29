@@ -1,9 +1,10 @@
+import { Image } from 'expo-image';
 import { useRouter } from 'expo-router';
 import React, { useEffect } from 'react';
-import { Image, ImageBackground, StyleSheet, View } from 'react-native';
+import { ImageBackground, StyleSheet, View } from 'react-native';
 
-import Fundo from './(tabs)/assets/images/loaderBgDark.png';
-import LoaderGif from './(tabs)/assets/images/loading.gif';
+import Fundo from '../assets/images/loaderBgDark.png';
+import LoaderGif from '../assets/images/loading.gif';
 
 export default function LoadingScreen() {
 	const router = useRouter();
@@ -19,7 +20,7 @@ export default function LoadingScreen() {
 	return (
 		<ImageBackground source={Fundo} style={styles.background}>
 			<View style={styles.container}>
-				<Image source={LoaderGif} style={styles.gif} />
+				<Image source={LoaderGif} style={styles.gif} transition={500} />
 			</View>
 		</ImageBackground>
 	);

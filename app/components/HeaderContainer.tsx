@@ -1,14 +1,24 @@
 import { Feather } from '@expo/vector-icons';
+import { DrawerActions } from '@react-navigation/native';
+import { useNavigation, useRouter } from 'expo-router';
 import React from 'react';
 import { Platform, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 export function HeaderContainer() {
+	const router = useRouter();
+	const navigation = useNavigation();
+	const handleNotificationsPress = () => {
+		router.push('/notifications');
+	};
+	const handleMenuPress = () => {
+		navigation.dispatch(DrawerActions.openDrawer());
+	};
 	return (
 		<View style={styles.container}>
 			{/* Lado Esquerdo: Menu e Saudação */}
 			<View style={styles.leftSection}>
-				<TouchableOpacity style={styles.iconButton}>
-					<Feather name="menu" size={26} color="#333" />
+				<TouchableOpacity style={styles.iconButton} onPress={handleMenuPress}>
+					<Feather name="menu" size={26} color="#ffffffff" />
 				</TouchableOpacity>
 				<View>
 					<Text style={styles.greetingText}>Olá, Anthony!</Text>
@@ -16,8 +26,8 @@ export function HeaderContainer() {
 				</View>
 			</View>
 
-			<TouchableOpacity style={styles.iconButton}>
-				<Feather name="bell" size={26} color="#333" />
+			<TouchableOpacity style={styles.iconButton} onPress={handleNotificationsPress}>
+				<Feather name="bell" size={26} color="#ffffffff" />
 			</TouchableOpacity>
 		</View>
 	);
@@ -30,8 +40,8 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		paddingHorizontal: 20,
 		paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 65,
-		paddingBottom: 0,
-		backgroundColor: '#FFFFFF',
+		paddingBottom: 15,
+		backgroundColor: '#0095DA',
 	},
 	leftSection: {
 		flexDirection: 'row',
@@ -43,12 +53,12 @@ const styles = StyleSheet.create({
 	greetingText: {
 		fontSize: 20,
 		fontWeight: 'bold',
-		color: '#333',
+		color: '#ffffffff',
 		marginLeft: 15,
 	},
 	greetingSubtext: {
 		fontSize: 14,
-		color: '#888',
+		color: '#ffffffff',
 		marginLeft: 15,
 	},
 });

@@ -13,8 +13,8 @@ import {
 	View,
 } from 'react-native';
 
-import FundoLogin from './(tabs)/images/fundo1.png';
-import Logo from './(tabs)/images/logo2-fan.png';
+import FundoLogin from '../assets/images/fundo1.png';
+import Logo from '../assets/images/logo2-fan.png';
 
 export default function LoginScreen() {
 	const [convenio, setConvenio] = useState('');

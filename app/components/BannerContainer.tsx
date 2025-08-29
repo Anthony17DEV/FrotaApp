@@ -1,9 +1,15 @@
 import { Feather } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useRouter } from 'expo-router';
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 export function BannerContainer() {
+	const router = useRouter();
+
+	const handleVerifyPress = () => {
+		router.push('/notifications');
+	};
 	return (
 		<View style={styles.container}>
 			<LinearGradient
@@ -20,7 +26,7 @@ export function BannerContainer() {
 							<Text style={styles.subtitle}>Você tem 2 novas notificações</Text>
 						</View>
 					</View>
-					<TouchableOpacity>
+					<TouchableOpacity onPress={handleVerifyPress}>
 						<Text style={styles.buttonText}>Verificar</Text>
 					</TouchableOpacity>
 				</View>
