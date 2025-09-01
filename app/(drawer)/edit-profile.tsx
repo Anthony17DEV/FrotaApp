@@ -16,7 +16,7 @@ export default function EditProfileScreen() {
 				<View style={{ width: 24 }} />
 			</View>
 			<View style={styles.content}>
-				<Text>Aqui ficará o formulário para editar o perfil.</Text>
+				<Text>Aqui ficarÃ¡ o formulário para editar o perfil.</Text>
 			</View>
 		</SafeAreaView>
 	);

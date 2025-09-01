@@ -12,24 +12,24 @@ const trendingData = [
 	{
 		id: '1',
 		img: { uri: 'https://placehold.co/150x100/e0f7fa/333?text=Servi%C3%A7o+A' },
-		title: 'Alinhamento 3D',
-		subtitle: 'Precisão Máxima',
+		title: 'Tarifa de Energia Postos Zona Leste',
+		subtitle: 'Consultar Fatura',
 		price: 150.0,
 		underlinePrice: 180.0,
 	},
 	{
 		id: '2',
 		img: { uri: 'https://placehold.co/150x100/e0f7fa/333?text=Servi%C3%A7o+B' },
-		title: 'Limpeza de Motor',
-		subtitle: 'Performance Renovada',
+		title: 'Tarifa de Água Postos Zona Sul',
+		subtitle: 'Consultar Fatura',
 		price: 220.0,
 		underlinePrice: 250.0,
 	},
 	{
 		id: '3',
 		img: { uri: 'https://placehold.co/150x100/e0f7fa/333?text=Servi%C3%A7o+C' },
-		title: 'Troca de Pneus',
-		subtitle: 'Segurança em Primeiro Lugar',
+		title: 'Tarifa de Locação Postos Natal',
+		subtitle: 'Consultar Fatura',
 		price: 450.0,
 		underlinePrice: 500.0,
 	},
@@ -62,7 +62,7 @@ export function TrendingContainer() {
 
 	return (
 		<View style={styles.wrapper}>
-			<HeadingCategory value="Serviços em Destaque" seeall="Ver todos" />
+			<HeadingCategory value="Extrato" seeall="Ver todos" />
 			<FlatList
 				data={trendingData}
 				renderItem={renderItem}

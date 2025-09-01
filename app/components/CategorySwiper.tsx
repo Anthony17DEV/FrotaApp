@@ -3,10 +3,10 @@ import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-nati
 
 const categoryData = [
 	{ id: 0, title: 'Todos' },
-	{ id: 1, title: 'Combustível' },
-	{ id: 2, title: 'Manutenção' },
-	{ id: 3, title: 'Pneus' },
-	{ id: 4, title: 'Relatórios' },
+	{ id: 1, title: 'Gasolina' },
+	{ id: 2, title: 'Diesel' },
+	{ id: 3, title: 'Etanol' },
+	{ id: 4, title: 'GNV' },
 ];
 
 export function CategorySwiper() {

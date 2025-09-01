@@ -1,25 +1,24 @@
 import React from 'react';
 import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-// Dados de exemplo para "Serviços Recentes"
 const newArrivalData = [
 	{
 		id: '1',
 		img: { uri: 'https://placehold.co/100x100/e2e8f0/333?text=Servi%C3%A7o+1' },
-		title: 'Informação 1',
-		subtitle: 'Aqui ficaram as informações sobre a frota em especifica',
+		title: 'Pagamento Débito $35,00 Posto Dalva',
+		subtitle: 'Gasolina Comum abastecida as 08:39',
 	},
 	{
 		id: '2',
 		img: { uri: 'https://placehold.co/100x100/e2e8f0/333?text=Servi%C3%A7o+2' },
-		title: 'Informação 2',
-		subtitle: 'Aqui ficaram as informações sobre a frota em especifica',
+		title: 'Pagamento Débito $100,00 Posto Estrela',
+		subtitle: 'Gasolina Aditivada abastecida as 10:50',
 	},
 	{
 		id: '3',
 		img: { uri: 'https://placehold.co/100x100/e2e8f0/333?text=Servi%C3%A7o+3' },
-		title: 'Informação 3',
-		subtitle: 'Aqui ficaram as informações sobre a frota em especifica',
+		title: 'Pagamento Débito $200,00 Posto Alef',
+		subtitle: 'Diesel S-10 abastecida as 15:20',
 	},
 ];
 
@@ -50,7 +49,7 @@ export function NewArrivalContainer() {
 
 	return (
 		<View style={styles.wrapper}>
-			<HeadingCategory value="Serviços Recentes" seeall="Ver todos" />
+			<HeadingCategory value="Últimas Transações" seeall="Ver todos" />
 			<FlatList
 				data={newArrivalData}
 				renderItem={renderItem}

@@ -32,7 +32,7 @@ export function CustomTabBar({ state, descriptors, navigation }: BottomTabBarPro
 
 				const getIconName = (routeName: string, focused: boolean) => {
 					switch (routeName) {
-						case 'home': return 'home';
+						case 'home': return 'layout';
 						case 'categories': return 'grid';
 						case 'cart': return 'shopping-bag';
 						case 'profile': return 'user';
