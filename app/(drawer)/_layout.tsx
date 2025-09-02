@@ -1,21 +1,45 @@
-import { Feather } from '@expo/vector-icons';
-import AntDesign from '@expo/vector-icons/AntDesign';
-import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import { AntDesign, Feather, MaterialCommunityIcons } from '@expo/vector-icons';
 import { DrawerContentComponentProps } from '@react-navigation/drawer';
 import { Drawer } from 'expo-router/drawer';
+import React from 'react';
 import { CustomDrawerContent } from '../components/CustomDrawerContent';
+import { HeaderContainer } from '../components/HeaderContainer';
 
 export default function DrawerLayout() {
 	return (
 		<Drawer
 			drawerContent={(props: DrawerContentComponentProps) => <CustomDrawerContent {...props} />}
-			screenOptions={{ headerShown: false }}
+
+			screenOptions={({ route }) => ({
+				headerShown: true,
+
+				header: () => {
+					let title = '';
+					if (route.name === '(tabs)') {
+						title = 'Olá, Anthony!';
+					} else if (route.name === 'veiculos') {
+						title = 'Veículos';
+					} else if (route.name === 'condutores') {
+						title = 'Condutores';
+					} else if (route.name === 'transacoes') {
+						title = 'Transações';
+					} else if (route.name === 'estabelecimentos') {
+						title = 'Estabelecimentos';
+					} else if (route.name === 'notifications') {
+						title = 'Notificações';
+					} else if (route.name === 'edit-profile') {
+						title = 'Editar Perfil';
+					}
+
+					return <HeaderContainer title={title} />;
+				},
+			})}
 		>
 			<Drawer.Screen
 				name="(tabs)"
 				options={{
 					title: 'Dashboard',
-					drawerIcon: ({ size, color }: { size: number; color: string }) => (
+					drawerIcon: ({ size, color }) => (
 						<Feather name="layout" size={size} color={color} />
 					),
 				}}
@@ -24,7 +48,7 @@ export default function DrawerLayout() {
 				name="veiculos"
 				options={{
 					title: 'Veículos',
-					drawerIcon: ({ size, color }: { size: number; color: string }) => (
+					drawerIcon: ({ size, color }) => (
 						<Feather name="truck" size={size} color={color} />
 					),
 				}}
@@ -33,8 +57,8 @@ export default function DrawerLayout() {
 				name="condutores"
 				options={{
 					title: 'Condutores',
-					drawerIcon: ({ size, color }: { size: number; color: string }) => (
-						<MaterialCommunityIcons name="steering" size={24} color="black" />
+					drawerIcon: ({ size, color }) => (
+						<MaterialCommunityIcons name="steering" size={size} color={color} />
 					),
 				}}
 			/>
@@ -42,7 +66,7 @@ export default function DrawerLayout() {
 				name="transacoes"
 				options={{
 					title: 'Transações',
-					drawerIcon: ({ size, color }: { size: number; color: string }) => (
+					drawerIcon: ({ size, color }) => (
 						<Feather name="dollar-sign" size={size} color={color} />
 					),
 				}}
@@ -51,8 +75,8 @@ export default function DrawerLayout() {
 				name="estabelecimentos"
 				options={{
 					title: 'Estabelecimentos',
-					drawerIcon: ({ size, color }: { size: number; color: string }) => (
-						<AntDesign name="enviromento" size={24} color="black" />
+					drawerIcon: ({ size, color }) => (
+						<AntDesign name="enviromento" size={size} color={color} />
 					),
 				}}
 			/>
@@ -60,7 +84,7 @@ export default function DrawerLayout() {
 				name="notifications"
 				options={{
 					title: 'Notificações',
-					drawerIcon: ({ size, color }: { size: number; color: string }) => (
+					drawerIcon: ({ size, color }) => (
 						<Feather name="bell" size={size} color={color} />
 					),
 				}}
@@ -69,7 +93,7 @@ export default function DrawerLayout() {
 				name="edit-profile"
 				options={{
 					title: 'Editar Perfil',
-					drawerIcon: ({ size, color }: { size: number; color: string }) => (
+					drawerIcon: ({ size, color }) => (
 						<Feather name="edit" size={size} color={color} />
 					),
 				}}

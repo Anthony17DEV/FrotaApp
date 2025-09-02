@@ -1,17 +1,28 @@
 import axios from 'axios';
-const frotaplusApiUrl = 'https://sistemascactus.com/apicactus/frotaplus/cartoes.php';
 
-const getCartoes = async () => {
+const apiUrl = 'https://sistemascactus.com/apicactus/frotaplus/';
+
+const getVehicles = async (params) => {
 	try {
-		console.log(`Buscando dados em: ${frotaplusApiUrl}`);
-		const response = await axios.get(frotaplusApiUrl);
+		const response = await axios.get(`${apiUrl}veiculos.php`, { params });
 		return response.data;
 	} catch (error) {
-		console.error('Erro ao buscar dados do Frotaplus:', error.response?.data || error.message);
-		throw new Error('Não foi possível obter os dados dos cartões.');
+		console.error('Erro ao buscar dados dos veículos:', error.response?.data || error.message);
+		throw new Error('Não foi possível obter os dados dos veículos.');
+	}
+};
+
+const getTransacoes = async (params) => {
+	try {
+		const response = await axios.get(`${apiUrl}transacoes.php`, { params });
+		return response.data;
+	} catch (error) {
+		console.error('Erro ao buscar dados das transações:', error.response?.data || error.message);
+		throw new Error('Não foi possível obter os dados das transações.');
 	}
 };
 
 export const frotaplusService = {
-	getCartoes,
+	getVehicles,
+	getTransacoes,
 };
