@@ -22,7 +22,29 @@ const getTransacoes = async (params) => {
 	}
 };
 
+const getCondutores = async (params) => {
+	try {
+		const response = await axios.get(`${apiUrl}condutores.php`, { params });
+		return response.data;
+	} catch (error) {
+		console.error('Erro ao buscar dados dos condutores:', error.response?.data || error.message);
+		throw new Error('Não foi possível obter os dados dos condutores.');
+	}
+};
+
+const getEstabelecimentos = async (params) => {
+	try {
+		const response = await axios.get(`${apiUrl}estabelecimentos.php`, { params });
+		return response.data;
+	} catch (error) {
+		console.error('Erro ao buscar dados dos estabelecimentos:', error.response?.data || error.message);
+		throw new Error('Não foi possível obter os dados dos estabelecimentos.');
+	}
+};
+
 export const frotaplusService = {
 	getVehicles,
 	getTransacoes,
+	getCondutores,
+	getEstabelecimentos,
 };

@@ -1,4 +1,4 @@
-import { Feather } from '@expo/vector-icons';
+﻿import { Feather } from '@expo/vector-icons';
 import { Href, useRouter } from 'expo-router';
 import React from 'react';
 import { Image, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
@@ -19,7 +19,6 @@ export default function ProfileScreen() {
 	return (
 		<SafeAreaView style={styles.screen}>
 			<ScrollView>
-				{/* Seção do Cabeçalho do Perfil */}
 				<View style={styles.profileHeader}>
 					<View style={styles.avatarContainer}>
 						<Image source={UserAvatar} style={styles.avatar} />
@@ -28,7 +27,6 @@ export default function ProfileScreen() {
 					<Text style={styles.userEmail}>anthony.dev@email.com</Text>
 				</View>
 
-				{/* Seção do Menu */}
 				<View style={styles.menuContainer}>
 					{profileMenuItems.map((item) => (
 						<TouchableOpacity key={item.id} style={styles.menuItem} onPress={() => handlePress(item)}>

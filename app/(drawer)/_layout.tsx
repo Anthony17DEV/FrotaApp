@@ -29,6 +29,10 @@ export default function DrawerLayout() {
 						title = 'Notificações';
 					} else if (route.name === 'edit-profile') {
 						title = 'Editar Perfil';
+					} else if (route.name === 'form-veiculo') {
+						title = 'Cadastrar Veículo';
+					} else if (route.name === 'form-condutor') {
+						title = 'Cadastrar Condutor';
 					}
 
 					return <HeaderContainer title={title} />;
@@ -93,9 +97,24 @@ export default function DrawerLayout() {
 				name="edit-profile"
 				options={{
 					title: 'Editar Perfil',
-					drawerIcon: ({ size, color }) => (
-						<Feather name="edit" size={size} color={color} />
-					),
+					drawerLabel: () => null,
+					drawerItemStyle: { height: 0 },
+				}}
+			/>
+			<Drawer.Screen
+				name="form-veiculo"
+				options={{
+					title: 'Cadastrar Veículo',
+					drawerLabel: () => null,
+					drawerItemStyle: { height: 0 },
+				}}
+			/>
+			<Drawer.Screen
+				name="form-condutor"
+				options={{
+					title: 'Cadastrar Condutor',
+					drawerLabel: () => null,
+					drawerItemStyle: { height: 0 },
 				}}
 			/>
 		</Drawer>

@@ -1,5 +1,6 @@
+import { useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, FlatList, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, FlatList, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { frotaplusService } from 'src/services/frotaplusService';
 
 type Vehicle = {
@@ -13,34 +14,42 @@ type Vehicle = {
 const VehicleListItem = ({ item }: { item: Vehicle }) => {
 	const situacaoTexto = item.situacao === 'A' ? 'ATIVO' : 'INATIVO';
 
-	const getCombustivelAbreviado = (combustivel: string) => {
-		const lower = combustivel.toLowerCase();
-		if (lower.includes('diesel')) return 'D';
-		if (lower.includes('gasolina')) return 'G';
-		if (lower.includes('flex')) return 'F';
-		if (lower.includes('etanol')) return 'E';
-		return combustivel.charAt(0);
-	};
-
 	return (
-		<View style={styles.row}>
-			<Text style={[styles.cell, { flex: 1.5 }]}>{item.placa}</Text>
-			<Text style={[styles.cell, { flex: 2 }]}>{item.modelo}</Text>
-			<Text style={[styles.cell, { flex: 2 }]}>{item.combustivel}</Text>
-			<View style={{ flex: 1.5, justifyContent: 'center', alignItems: 'center' }}>
+		<View style={styles.cardContainer}>
+			<View style={styles.cardHeader}>
+				<Text style={styles.cardTitle}>{item.placa}</Text>
 				<View style={[styles.statusBadge, item.situacao === 'A' ? styles.statusAtivo : styles.statusInativo]}>
-					<Text style={[item.situacao === 'A' ? styles.statusTextAtivo : styles.statusTextInativo]}>{situacaoTexto}</Text>
+					<Text style={[styles.statusText, item.situacao === 'A' ? styles.statusTextAtivo : styles.statusTextInativo]}>{situacaoTexto}</Text>
 				</View>
 			</View>
-			<View style={[styles.actionsCell, { flex: 1.2 }]}>
-				<TouchableOpacity onPress={() => console.log('Editar:', item.placa)}><Text style={styles.actionIcon}>✏️</Text></TouchableOpacity>
-				<TouchableOpacity onPress={() => console.log('Excluir:', item.placa)}><Text style={styles.actionIcon}>🗑️</Text></TouchableOpacity>
+
+			<View style={styles.cardBody}>
+				<View style={styles.cardRow}>
+					<Text style={styles.cardLabel}>Modelo:</Text>
+					<Text style={styles.cardValue}>{item.modelo}</Text>
+				</View>
+				<View style={styles.cardRow}>
+					<Text style={styles.cardLabel}>Combustível:</Text>
+					<Text style={styles.cardValue}>{item.combustivel}</Text>
+				</View>
+			</View>
+
+			<View style={styles.cardActions}>
+				<TouchableOpacity style={styles.actionButton}>
+					<Text style={styles.actionIcon}>✏️</Text>
+					<Text style={styles.actionButtonText}>Editar</Text>
+				</TouchableOpacity>
+				<TouchableOpacity style={styles.actionButton}>
+					<Text style={styles.actionIcon}>🗑️</Text>
+					<Text style={styles.actionButtonText}>Excluir</Text>
+				</TouchableOpacity>
 			</View>
 		</View>
 	);
 };
 
 export default function VehiclesScreen() {
+	const router = useRouter();
 	const [allVehicles, setAllVehicles] = useState<Vehicle[]>([]);
 	const [displayedVehicles, setDisplayedVehicles] = useState<Vehicle[]>([]);
 	const [isLoading, setIsLoading] = useState(false);
@@ -95,47 +104,46 @@ export default function VehiclesScreen() {
 	};
 
 	const handleInsert = () => {
-		console.log('Abrir tela de cadastro de veículo');
+		router.push('/form-veiculo');
 	};
 
 	return (
-		<View style={styles.container}>
-			<View style={styles.filterContainer}>
-				<Text style={styles.filterTitle}>Filtro de Busca</Text>
-				<View style={styles.filterRow}>
-					<TextInput style={[styles.input, { flex: 1, marginRight: 10 }]} placeholder="Placa" value={placa} onChangeText={setPlaca} />
-					<TextInput style={[styles.input, { flex: 1 }]} placeholder="Tipo" value={tipo} onChangeText={setTipo} />
+		<KeyboardAvoidingView
+			style={{ flex: 1 }}
+			behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+		>
+			<View style={styles.container}>
+				<View style={styles.filterContainer}>
+					<Text style={styles.filterTitle}>Filtro de Busca</Text>
+					<View style={styles.filterRow}>
+						<TextInput style={[styles.input, { flex: 1, marginRight: 10 }]} placeholder="Placa" value={placa} onChangeText={setPlaca} />
+						<TextInput style={[styles.input, { flex: 1 }]} placeholder="Tipo" value={tipo} onChangeText={setTipo} />
+					</View>
+					<TextInput style={[styles.input, { width: '100%', marginTop: 10 }]} placeholder="Modelo" value={modelo} onChangeText={setModelo} />
 				</View>
-				<TextInput style={[styles.input, { width: '100%', marginTop: 10 }]} placeholder="Modelo" value={modelo} onChangeText={setModelo} />
-			</View>
 
-			<View style={styles.buttonsContainer}>
-				<TouchableOpacity style={[styles.button, styles.searchButton]} onPress={handleSearch}><Text style={styles.buttonText}>Buscar</Text></TouchableOpacity>
-				<TouchableOpacity style={[styles.button, styles.insertButton]} onPress={handleInsert}><Text style={styles.buttonText}>Inserir</Text></TouchableOpacity>
-				<TouchableOpacity style={[styles.button, styles.importButton]}><Text style={[styles.buttonText, { color: '#333' }]}>Importar</Text></TouchableOpacity>
-			</View>
+				<View style={styles.buttonsContainer}>
+					<TouchableOpacity style={[styles.button, styles.searchButton]} onPress={handleSearch}><Text style={styles.buttonText}>Buscar</Text></TouchableOpacity>
+					<TouchableOpacity style={[styles.button, styles.insertButton]} onPress={handleInsert}><Text style={styles.buttonText}>Inserir</Text></TouchableOpacity>
+					<TouchableOpacity style={[styles.button, styles.importButton]}><Text style={[styles.buttonText, { color: '#333' }]}>Importar</Text></TouchableOpacity>
+				</View>
 
-			<View style={styles.listHeader}>
-				<Text style={[styles.headerText, { flex: 1.8 }]}>PLACA</Text>
-				<Text style={[styles.headerText, { flex: 2.2 }]}>MODELO</Text>
-				<Text style={[styles.headerText, { flex: 1.5, textAlign: 'center' }]}>COMB.</Text>
-				<Text style={[styles.headerText, { flex: 1.8, textAlign: 'center' }]}>SITUAÇÃO</Text>
-				<Text style={[styles.headerText, { flex: 1.2, textAlign: 'center' }]}>AÇÕES</Text>
-			</View>
 
-			{isLoading ? (
-				<ActivityIndicator size="large" color="#3498db" style={{ marginTop: 20 }} />
-			) : error ? (
-				<Text style={styles.errorText}>{error}</Text>
-			) : (
-				<FlatList
-					data={displayedVehicles}
-					renderItem={({ item }) => <VehicleListItem item={item} />}
-					keyExtractor={(item) => item.placa}
-					ListEmptyComponent={<Text style={styles.emptyText}>Nenhum veículo encontrado.</Text>}
-				/>
-			)}
-		</View>
+				{isLoading ? (
+					<ActivityIndicator size="large" color="#3498db" style={{ marginTop: 20 }} />
+				) : error ? (
+					<Text style={styles.errorText}>{error}</Text>
+				) : (
+					<FlatList
+						data={displayedVehicles}
+						renderItem={({ item }) => <VehicleListItem item={item} />}
+						keyExtractor={(item) => item.placa}
+						ListEmptyComponent={<Text style={styles.emptyText}>Nenhum veículo encontrado.</Text>}
+						contentContainerStyle={{ paddingBottom: 20 }}
+					/>
+				)}
+			</View>
+		</KeyboardAvoidingView>
 	);
 }
 
@@ -146,7 +154,7 @@ const styles = StyleSheet.create({
 	filterRow: { flexDirection: 'row', justifyContent: 'space-between' },
 	input: {
 		borderWidth: 1,
-		borderColor: '#ddd',
+		borderColor: '#999999ff',
 		borderRadius: 5,
 		padding: 10,
 		fontSize: 16,
@@ -158,11 +166,61 @@ const styles = StyleSheet.create({
 	insertButton: { backgroundColor: '#2ecc71' },
 	importButton: { backgroundColor: '#ecf0f1', borderWidth: 1, borderColor: '#bdc3c7' },
 	buttonText: { color: 'white', fontWeight: 'bold', fontSize: 16 },
-	listHeader: { flexDirection: 'row', paddingVertical: 10, paddingHorizontal: 5, backgroundColor: '#e9ecef', borderTopLeftRadius: 8, borderTopRightRadius: 8 },
-	headerText: { fontWeight: 'bold', color: '#495057', fontSize: 13 },
-	row: { flexDirection: 'row', paddingVertical: 12, paddingHorizontal: 5, backgroundColor: 'white', borderBottomWidth: 1, borderColor: '#eee', alignItems: 'center' },
-	cell: { color: '#333', fontSize: 13 }, // AJUSTE: Tamanho da fonte da célula
-	actionsCell: { flexDirection: 'row', justifyContent: 'space-around' },
+	cardContainer: {
+		backgroundColor: 'white',
+		borderRadius: 8,
+		padding: 15,
+		marginBottom: 15,
+		shadowColor: '#000',
+		shadowOffset: { width: 0, height: 1 },
+		shadowOpacity: 0.1,
+		shadowRadius: 3,
+		elevation: 3,
+	},
+	cardHeader: {
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		alignItems: 'center',
+		marginBottom: 15,
+	},
+	cardTitle: {
+		fontSize: 18,
+		fontWeight: 'bold',
+		color: '#333',
+	},
+	cardBody: {
+		marginBottom: 15,
+	},
+	cardRow: {
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		paddingVertical: 4,
+	},
+	cardLabel: {
+		fontSize: 14,
+		color: '#888',
+	},
+	cardValue: {
+		fontSize: 14,
+		color: '#333',
+		fontWeight: '500',
+	},
+	cardActions: {
+		flexDirection: 'row',
+		borderTopWidth: 1,
+		borderTopColor: '#eee',
+		paddingTop: 10,
+		justifyContent: 'flex-end',
+	},
+	actionButton: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		marginLeft: 20,
+	},
+	actionButtonText: {
+		marginLeft: 5,
+		color: '#555',
+	},
 	actionIcon: { fontSize: 18 },
 	statusBadge: { paddingVertical: 3, paddingHorizontal: 8, borderRadius: 12 },
 	statusAtivo: { backgroundColor: '#d4edda' },
