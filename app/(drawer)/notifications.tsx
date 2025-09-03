@@ -1,9 +1,8 @@
-import { Feather } from '@expo/vector-icons';
+﻿import { Feather } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React from 'react';
 import { FlatList, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-// Importando dados e o tipo
 import { NotificationItem, notifications } from '../../data/notificationData';
 
 export default function NotificationsScreen() {
@@ -32,12 +31,21 @@ export default function NotificationsScreen() {
 				<View style={{ width: 24 }} />
 			</View>
 
-			<FlatList
-				data={notifications}
-				renderItem={renderItem}
-				keyExtractor={(item) => item.id}
-				contentContainerStyle={styles.list}
-			/>
+			{notifications.length === 0 ? (
+				<View style={styles.emptyContainer}>
+					<Feather name="bell" size={40} color="#ccc" />
+					<Text style={styles.emptyText}>
+						Quando você tiver novidades,{"\n"}suas notificações aparecerão aqui.
+					</Text>
+				</View>
+			) : (
+				<FlatList
+					data={notifications}
+					renderItem={renderItem}
+					keyExtractor={(item) => item.id}
+					contentContainerStyle={styles.list}
+				/>
+			)}
 		</SafeAreaView>
 	);
 }
@@ -82,4 +90,18 @@ const styles = StyleSheet.create({
 	itemTitle: { fontSize: 16, fontWeight: 'bold', color: '#333' },
 	itemSubtitle: { fontSize: 14, color: '#666', marginVertical: 2 },
 	itemTime: { fontSize: 12, color: '#999', marginTop: 4 },
+
+	emptyContainer: {
+		flex: 1,
+		justifyContent: 'center',
+		alignItems: 'center',
+		paddingHorizontal: 20,
+	},
+	emptyText: {
+		marginTop: 15,
+		fontSize: 16,
+		color: '#999',
+		textAlign: 'center',
+		lineHeight: 22,
+	},
 });

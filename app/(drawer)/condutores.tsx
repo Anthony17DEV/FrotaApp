@@ -11,7 +11,7 @@ type Condutor = {
 	saldo: number;
 };
 
-const CondutorListItem = ({ item }: { item: Condutor }) => {
+const CondutorListItem = ({ item, onEdit }: { item: Condutor; onEdit: (condutor: Condutor) => void; }) => {
 	let situacaoTexto = 'INATIVO';
 	if (item.situacao === 'A') situacaoTexto = 'ATIVO';
 	if (item.situacao === 'B') situacaoTexto = 'BLOQUEADO';
@@ -41,7 +41,7 @@ const CondutorListItem = ({ item }: { item: Condutor }) => {
 			</View>
 
 			<View style={styles.cardActions}>
-				<TouchableOpacity style={styles.actionButton}>
+				<TouchableOpacity style={styles.actionButton} onPress={() => onEdit(item)}>
 					<Text style={styles.actionIcon}>✏️</Text>
 					<Text style={styles.actionButtonText}>Editar</Text>
 				</TouchableOpacity>
@@ -104,6 +104,13 @@ export default function CondutoresScreen() {
 		router.push('/form-condutor');
 	};
 
+	const handleEdit = (condutor: Condutor) => {
+		router.push({
+			pathname: '/form-condutor',
+			params: { ...condutor }
+		});
+	};
+
 	return (
 		<KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
 			<View style={styles.container}>
@@ -125,7 +132,7 @@ export default function CondutoresScreen() {
 				) : (
 					<FlatList
 						data={displayedCondutores}
-						renderItem={({ item }) => <CondutorListItem item={item} />}
+						renderItem={({ item }) => <CondutorListItem item={item} onEdit={handleEdit} />}
 						keyExtractor={(item) => item.numero}
 						ListEmptyComponent={<Text style={styles.emptyText}>Nenhum condutor encontrado.</Text>}
 						contentContainerStyle={{ paddingBottom: 20 }}

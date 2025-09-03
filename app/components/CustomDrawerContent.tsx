@@ -10,10 +10,12 @@ export function CustomDrawerContent(props: DrawerContentComponentProps) {
 		<View style={{ flex: 1 }}>
 			<View style={styles.header}>
 				<Image source={Logo} style={styles.logo} />
-				{/* <Text style={styles.headerText}>FanPlus</Text> */}
 			</View>
 
-			<DrawerContentScrollView {...props}>
+			<DrawerContentScrollView
+				{...props}
+				contentContainerStyle={{ paddingTop: 25 }}
+			>
 				<DrawerItemList {...props} />
 			</DrawerContentScrollView>
 

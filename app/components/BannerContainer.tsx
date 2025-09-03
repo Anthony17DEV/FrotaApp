@@ -23,7 +23,7 @@ export function BannerContainer() {
 						</View>
 						<View>
 							<Text style={styles.title}>Avisos Importantes</Text>
-							<Text style={styles.subtitle}>Você tem 2 novas notificações</Text>
+							<Text style={styles.subtitle}>Você não tem nenhuma no momento</Text>
 						</View>
 					</View>
 					<TouchableOpacity onPress={handleVerifyPress}>

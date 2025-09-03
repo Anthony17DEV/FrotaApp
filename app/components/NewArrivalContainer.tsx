@@ -1,4 +1,5 @@
-﻿import React, { useCallback, useEffect, useState } from 'react';
+﻿import { useRouter } from 'expo-router';
+import React, { useCallback, useEffect, useState } from 'react';
 import { ActivityIndicator, Button, FlatList, Image, ImageSourcePropType, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { frotaplusService } from 'src/services/frotaplusService';
 
@@ -50,17 +51,18 @@ const getIconForProduct = (productDescription: string): ImageSourcePropType => {
 	return icons.padrao;
 };
 
-
-const HeadingCategory = ({ value, seeall }: { value: string; seeall: string }) => (
+const HeadingCategory = ({ value, seeall, onSeeAllPress }: { value: string; seeall: string; onSeeAllPress: () => void; }) => (
 	<View style={styles.headingContainer}>
 		<Text style={styles.headingTitle}>{value}</Text>
-		<TouchableOpacity>
+		<TouchableOpacity onPress={onSeeAllPress}>
 			<Text style={styles.headingLink}>{seeall}</Text>
 		</TouchableOpacity>
 	</View>
 );
 
+
 export function NewArrivalContainer() {
+	const router = useRouter();
 	const [allTransactions, setAllTransactions] = useState<Transacao[]>([]);
 	const [displayedTransactions, setDisplayedTransactions] = useState<TransacaoMapeada[]>([]);
 
@@ -157,7 +159,11 @@ export function NewArrivalContainer() {
 
 	return (
 		<View style={styles.wrapper}>
-			<HeadingCategory value="Últimas Transações" seeall="Ver todas" />
+			<HeadingCategory
+				value="Últimas Transações"
+				seeall="Ver todas"
+				onSeeAllPress={() => router.push('/transacoes')}
+			/>
 
 			<View style={styles.swiperWrapper}>
 				<ScrollView horizontal showsHorizontalScrollIndicator={false}>
@@ -213,7 +219,6 @@ const styles = StyleSheet.create({
 	},
 	headingTitle: { fontSize: 20, fontWeight: 'bold' },
 	headingLink: { fontSize: 14, color: '#0095DA' },
-
 	swiperWrapper: {
 		marginTop: 10,
 		marginBottom: 20,
@@ -234,14 +239,12 @@ const styles = StyleSheet.create({
 		color: '#0095DA',
 		fontWeight: 'bold',
 	},
-
 	itemContainer: { flexDirection: 'row', backgroundColor: 'white', borderRadius: 10, padding: 12, marginBottom: 15, alignItems: 'center', shadowColor: '#000', shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.1, shadowRadius: 3, elevation: 3 },
 	itemImage: { width: 40, height: 40, borderRadius: 20, backgroundColor: '#f0f0f0' },
 	itemDetails: { flex: 1, marginLeft: 15, justifyContent: 'center' },
 	itemTitle: { fontSize: 16, fontWeight: 'bold', marginBottom: 4 },
 	itemSubtitle: { fontSize: 13, color: '#888' },
 	itemValue: { fontSize: 16, fontWeight: 'bold', color: '#333' },
-
 	centered: { justifyContent: 'center', alignItems: 'center', paddingVertical: 40 },
 	errorText: { color: 'red', fontSize: 16, textAlign: 'center', marginBottom: 10 },
 });

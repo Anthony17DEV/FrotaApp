@@ -1,6 +1,6 @@
 import { useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, FlatList, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Alert, FlatList, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { frotaplusService } from 'src/services/frotaplusService';
 
 type Vehicle = {
@@ -11,7 +11,7 @@ type Vehicle = {
 	tipoFrota?: string;
 };
 
-const VehicleListItem = ({ item }: { item: Vehicle }) => {
+const VehicleListItem = ({ item, onEdit, onDelete }: { item: Vehicle, onEdit: (vehicle: Vehicle) => void, onDelete: (vehicle: Vehicle) => void }) => {
 	const situacaoTexto = item.situacao === 'A' ? 'ATIVO' : 'INATIVO';
 
 	return (
@@ -35,11 +35,11 @@ const VehicleListItem = ({ item }: { item: Vehicle }) => {
 			</View>
 
 			<View style={styles.cardActions}>
-				<TouchableOpacity style={styles.actionButton}>
+				<TouchableOpacity style={styles.actionButton} onPress={() => onEdit(item)}>
 					<Text style={styles.actionIcon}>✏️</Text>
 					<Text style={styles.actionButtonText}>Editar</Text>
 				</TouchableOpacity>
-				<TouchableOpacity style={styles.actionButton}>
+				<TouchableOpacity style={styles.actionButton} onPress={() => onDelete(item)}>
 					<Text style={styles.actionIcon}>🗑️</Text>
 					<Text style={styles.actionButtonText}>Excluir</Text>
 				</TouchableOpacity>
@@ -107,6 +107,59 @@ export default function VehiclesScreen() {
 		router.push('/form-veiculo');
 	};
 
+	const handleImport = () => {
+		Alert.alert(
+			"Função Indisponível",
+			"A importação de veículos estará disponível em versões futuras do aplicativo.",
+			[{ text: "OK" }]
+		);
+	};
+
+	const handleEdit = (vehicle: Vehicle) => {
+		router.push({
+			pathname: '/form-veiculo',
+			params: { ...vehicle }
+		});
+	};
+
+	const handleDelete = (vehicleToInactivate: Vehicle) => {
+		if (vehicleToInactivate.situacao === 'I') {
+			Alert.alert("Atenção", "Este veículo já está inativo.");
+			return;
+		}
+
+		Alert.alert(
+			"Inativar Veículo",
+			`Tem certeza que deseja inativar o veículo de placa ${vehicleToInactivate.placa}?`,
+			[
+				{ text: "Cancelar", style: "cancel" },
+				{
+					text: "Inativar",
+					style: "destructive",
+					onPress: async () => {
+						try {
+							setAllVehicles(currentVehicles =>
+								currentVehicles.map(v =>
+									v.placa === vehicleToInactivate.placa ? { ...v, situacao: 'I' } : v
+								)
+							);
+
+							setDisplayedVehicles(currentVehicles =>
+								currentVehicles.map(v =>
+									v.placa === vehicleToInactivate.placa ? { ...v, situacao: 'I' } : v
+								)
+							);
+
+							Alert.alert("Sucesso!", "O veículo foi inativado.");
+						} catch (error) {
+							Alert.alert("Erro", "Não foi possível inativar o veículo. Tente novamente.");
+						}
+					}
+				}
+			]
+		);
+	};
+
 	return (
 		<KeyboardAvoidingView
 			style={{ flex: 1 }}
@@ -125,7 +178,7 @@ export default function VehiclesScreen() {
 				<View style={styles.buttonsContainer}>
 					<TouchableOpacity style={[styles.button, styles.searchButton]} onPress={handleSearch}><Text style={styles.buttonText}>Buscar</Text></TouchableOpacity>
 					<TouchableOpacity style={[styles.button, styles.insertButton]} onPress={handleInsert}><Text style={styles.buttonText}>Inserir</Text></TouchableOpacity>
-					<TouchableOpacity style={[styles.button, styles.importButton]}><Text style={[styles.buttonText, { color: '#333' }]}>Importar</Text></TouchableOpacity>
+					<TouchableOpacity style={[styles.button, styles.importButton]} onPress={handleImport}><Text style={[styles.buttonText, { color: '#333' }]}>Importar</Text></TouchableOpacity>
 				</View>
 
 
@@ -136,7 +189,7 @@ export default function VehiclesScreen() {
 				) : (
 					<FlatList
 						data={displayedVehicles}
-						renderItem={({ item }) => <VehicleListItem item={item} />}
+						renderItem={({ item }) => <VehicleListItem item={item} onEdit={handleEdit} onDelete={handleDelete} />}
 						keyExtractor={(item) => item.placa}
 						ListEmptyComponent={<Text style={styles.emptyText}>Nenhum veículo encontrado.</Text>}
 						contentContainerStyle={{ paddingBottom: 20 }}
