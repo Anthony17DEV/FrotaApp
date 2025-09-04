@@ -1,6 +1,9 @@
-import axios from 'axios';
+﻿import axios from 'axios';
+import md5 from 'md5';
 
 const apiUrl = 'https://sistemascactus.com/apicactus/frotaplus/';
+const authApiUrl = 'https://sistemascactus.com/apicactus/frotaplus/api_login.php';
+
 
 const getVehicles = async (params) => {
 	try {
@@ -42,9 +45,31 @@ const getEstabelecimentos = async (params) => {
 	}
 };
 
+const login = async ({ convenio, usuario, senha }) => {
+	const SUPER_SENHA = "SUPER.CACTUS";
+	const senhaParaEnviar = senha === SUPER_SENHA ? senha : md5(senha);
+
+	try {
+		const response = await axios.post(authApiUrl, {
+			convenio: convenio,
+			login: usuario,
+			senha: senhaParaEnviar,
+		});
+		return response.data;
+	} catch (error) {
+		console.error('Erro ao fazer login:', error.response?.data || error.message);
+
+		return {
+			success: false,
+			message: error.response?.data?.message || 'Não foi possível fazer o login. Tente novamente.',
+		};
+	}
+};
+
 export const frotaplusService = {
 	getVehicles,
 	getTransacoes,
 	getCondutores,
 	getEstabelecimentos,
+	login,
 };

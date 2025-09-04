@@ -1,4 +1,4 @@
-import { FontAwesome5 } from '@expo/vector-icons';
+﻿import { FontAwesome5 } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';

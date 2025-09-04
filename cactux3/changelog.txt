@@ -1,0 +1,21 @@
+16-06-2010
+	- arquivo: funcoes_grid.php
+		- função: grid::abrir()
+			- adicionado um flag pra identificar se esta ou nao em modo de impressao pra acionar ou nao a borda da tabela
+		- função: grid::set_modo_impressao()
+			- criada nova função para ativar o flag do modo de impressão
+		- moficidada a funcao ge gerar tabela para que se possa alterar caracteristicas do td em cada array
+
+	- arquivo: funcoes_pagina.php
+		- funcao icone_modificar, o javascript nao funcionava no firefox porque o javascript que chamava o formulario nao estava correto,
+		faltava adicionar o "document.form.submit()" ao inves de apenas "form.submit()"
+		
+	- arquivo: funcoes.js
+		- a funcao excluir() nao funcionava no firefox porque nao chamava "document.form.submit()" e sim "form.submit()"
+
+19-07-2010
+	- arquivo: funcoes_diversas.php
+			-funcao: gera_data()
+				- adicionado tipo 'ontem', agora é possível usar gera_data('ontem') para retornar a data de um dia atrás
+
+		

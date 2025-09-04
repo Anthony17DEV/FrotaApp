@@ -1,0 +1,82 @@
+.tab {
+
+}
+
+.invisivel {
+	display: none;
+}
+
+.rel {
+        FONT-FAMILY: Arial, Helvetica, sans-serif; FONT-SIZE: 11px; COLOR:#000000;
+        height:18px; vertical-align:middle;
+}
+
+.relatorio {
+        FONT-FAMILY: Arial, Helvetica, sans-serif; FONT-SIZE: 11px; COLOR:#000000;
+		height:18px; vertical-align:middle;
+}
+
+
+input, select {
+	font: 11px Verdana; 
+}
+
+
+.campo_texto {
+	font: 11px Verdana; 
+}
+
+
+.campo_descricao {
+	font: bold 11px Verdana; 
+}
+
+
+TABLE.grid {
+	FONT-FAMILY: Arial, Helvetica, sans-serif; FONT-SIZE: 10px; COLOR:#000000;
+	border: 1px;
+	border-style: solid; 
+	border-collapse: collapse;
+}
+
+TABLE.grid TD {
+	PADDING-BOTTOM: 2px; PADDING-LEFT: 2px; PADDING-RIGHT: 2px; VERTICAL-ALIGN: top; PADDING-TOP: 2px;
+	height:18px; vertical-align:middle;
+}
+
+TABLE.grid TR.claro {
+	BACKGROUND: #fff;
+}
+TABLE.grid TR.claro:hover {
+	BACKGROUND: #fff; 
+}
+
+TABLE.grid TR.escuro {
+	BACKGROUND: #fff
+}
+TABLE.grid TR.escuro:hover {
+	BACKGROUND: #fff; 
+}
+
+TABLE.grid TR.barra {
+	FONT-WEIGHT: bold;
+	background: #fff;
+	border-bottom-width: 2px;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-left-width: 1px;
+
+	border-style: solid; 
+	border-collapse: collapse;
+	
+}
+
+table.grid tr, table.grid tr a {
+	text-decoration: none;
+	COLOR:#000000;
+}
+
+
+.field {	font: bold 12px Verdana; padding: 5px; border:1px solid #000000; width:97%; }
+
+legend{ color: #000; background: #fff; border: 1px solid #c8d7e3; padding: 2px 16px; border:1px solid #000000; }
