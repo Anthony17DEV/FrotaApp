@@ -2,10 +2,12 @@
 import { Href, useRouter } from 'expo-router';
 import React from 'react';
 import { Image, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import UserAvatar from '../../../assets/images/Profile-1.png';
+import UserAvatar from '../../../assets/images/user-placeholder.png';
+import { useAuth } from '../../../contexts/AuthContext';
 import { ProfileMenuItem, profileMenuItems } from '../../../data/profileData';
 
 export default function ProfileScreen() {
+	const { user } = useAuth();
 	const router = useRouter();
 
 	const handlePress = (item: ProfileMenuItem) => {
@@ -23,7 +25,7 @@ export default function ProfileScreen() {
 					<View style={styles.avatarContainer}>
 						<Image source={UserAvatar} style={styles.avatar} />
 					</View>
-					<Text style={styles.userName}>Anthony</Text>
+					<Text style={styles.userName}>{user?.login || 'Usuário'}</Text>
 					<Text style={styles.userEmail}>anthony.dev@email.com</Text>
 				</View>
 

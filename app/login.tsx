@@ -11,7 +11,7 @@ import {
 	Text,
 	TextInput,
 	TouchableOpacity,
-	View,
+	View
 } from 'react-native';
 
 import FundoLogin from '../assets/images/fundo1.png';
@@ -23,6 +23,7 @@ export default function LoginScreen() {
 	const [senha, setSenha] = useState('');
 	const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 	const router = useRouter();
+
 	const params = useLocalSearchParams();
 
 	useEffect(() => {
@@ -73,7 +74,7 @@ export default function LoginScreen() {
 						<TouchableOpacity style={styles.button} onPress={handleLogin}>
 							<Text style={styles.buttonText}>Entrar</Text>
 						</TouchableOpacity>
-						<TouchableOpacity><Text style={styles.forgotPasswordText}>Esqueceu a sua senha?</Text></TouchableOpacity>
+						{/* <TouchableOpacity><Text style={styles.forgotPasswordText}>Esqueceu a sua senha?</Text></TouchableOpacity> */}
 					</View>
 				</View>
 

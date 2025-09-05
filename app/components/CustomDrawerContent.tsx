@@ -3,7 +3,7 @@ import { DrawerContentComponentProps, DrawerContentScrollView, DrawerItemList } 
 import React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 
-import Logo from '../../assets/images/logo2-fan.png';
+import Logo from '../../assets/images/logologo.png';
 
 export function CustomDrawerContent(props: DrawerContentComponentProps) {
 	return (
@@ -30,15 +30,15 @@ export function CustomDrawerContent(props: DrawerContentComponentProps) {
 const styles = StyleSheet.create({
 	header: {
 		padding: 20,
-		paddingTop: 50,
+		paddingTop: 35,
 		backgroundColor: '#0095DA',
 		alignItems: 'center',
 	},
 	logo: {
-		width: 80,
-		height: 80,
+		width: 180,
+		height: 180,
 		resizeMode: 'contain',
-		marginBottom: 10,
+		marginBottom: 0,
 	},
 	headerText: {
 		color: 'white',

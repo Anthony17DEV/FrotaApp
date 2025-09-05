@@ -2,10 +2,12 @@ import { AntDesign, Feather, MaterialCommunityIcons } from '@expo/vector-icons';
 import { DrawerContentComponentProps } from '@react-navigation/drawer';
 import { Drawer } from 'expo-router/drawer';
 import React from 'react';
+import { useAuth } from '../../contexts/AuthContext';
 import { CustomDrawerContent } from '../components/CustomDrawerContent';
 import { HeaderContainer } from '../components/HeaderContainer';
 
 export default function DrawerLayout() {
+	const { user } = useAuth();
 	return (
 		<Drawer
 			drawerContent={(props: DrawerContentComponentProps) => <CustomDrawerContent {...props} />}
@@ -16,7 +18,7 @@ export default function DrawerLayout() {
 				header: () => {
 					let title = '';
 					if (route.name === '(tabs)') {
-						title = 'Olá, Anthony!';
+						title = `Olá, ${user?.login || 'Usuário'}!`;
 					} else if (route.name === 'veiculos') {
 						title = 'Veículos';
 					} else if (route.name === 'condutores') {

@@ -66,10 +66,43 @@ const login = async ({ convenio, usuario, senha }) => {
 	}
 };
 
+const getGruposFrota = async (convenio) => {
+	try {
+		const response = await axios.get(`${apiUrl}api_get_grupos_frota.php`, { params: { convenio } });
+		return response.data.data;
+	} catch (error) {
+		console.error('Erro ao buscar grupos de frota:', error.response?.data || error.message);
+		return [];
+	}
+};
+
+const getTiposFrota = async (convenio) => {
+	try {
+		const response = await axios.get(`${apiUrl}api_get_tipos_frota.php`, { params: { convenio } });
+		return response.data.data;
+	} catch (error) {
+		console.error('Erro ao buscar tipos de frota:', error.response?.data || error.message);
+		return [];
+	}
+};
+
+const getAlocacoes = async (convenio) => {
+	try {
+		const response = await axios.get(`${apiUrl}api_get_alocacoes.php`, { params: { convenio } });
+		return response.data.data;
+	} catch (error) {
+		console.error('Erro ao buscar alocações:', error.response?.data || error.message);
+		return [];
+	}
+};
+
 export const frotaplusService = {
 	getVehicles,
 	getTransacoes,
 	getCondutores,
 	getEstabelecimentos,
 	login,
+	getGruposFrota,
+	getTiposFrota,
+	getAlocacoes,
 };

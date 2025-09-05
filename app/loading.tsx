@@ -3,6 +3,7 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useEffect } from 'react';
 import { Alert, ImageBackground, StyleSheet, View } from 'react-native';
 import { frotaplusService } from 'src/services/frotaplusService';
+import { useAuth } from '../contexts/AuthContext';
 
 import Fundo from '../assets/images/loaderBgDark.png';
 import LoaderGif from '../assets/images/loading.gif';
@@ -10,31 +11,35 @@ import LoaderGif from '../assets/images/loading.gif';
 export default function LoadingScreen() {
 	const router = useRouter();
 	const { convenio, usuario, senha } = useLocalSearchParams();
+	const { signIn } = useAuth();
 
 	useEffect(() => {
 		const performLogin = async () => {
 			if (typeof convenio !== 'string' || typeof usuario !== 'string' || typeof senha !== 'string') {
-				Alert.alert('Erro', 'Dados de login inv·lidos. Tentando voltar...');
+				Alert.alert('Erro', 'Dados de login inv√°lidos. Tentando voltar...');
 				router.replace('/');
 				return;
+			}
+
+			if (typeof convenio === 'string' && typeof usuario === 'string' && typeof senha === 'string') {
+				signIn({ convenio, usuario, senha });
 			}
 
 			try {
 				const response = await frotaplusService.login({ convenio, usuario, senha });
 
-				if (response.success) {
+				if (response && response.success) {
 					router.replace('/(drawer)/(tabs)/home');
 				} else {
 					router.replace({
-						pathname: '/home',
-						params: { error: response.message || 'ConvÍnio, usu·rio ou senha inv·lidos.' }
+						pathname: '/',
+						params: { error: response.message || 'Conv√™nio, usu√°rio ou senha inv√°lidos.' }
 					});
 				}
 			} catch (error) {
-				console.error('Falha no login:', error);
 				router.replace({
 					pathname: '/',
-					params: { error: 'N„o foi possÌvel conectar. Verifique sua internet.' }
+					params: { error: 'N√£o foi poss√≠vel conectar. Verifique sua internet.' }
 				});
 			}
 		};
